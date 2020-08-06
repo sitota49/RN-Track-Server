@@ -18,8 +18,8 @@ import { setNavigator } from './src/navigationRef';
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
   LoginFlow: createStackNavigator({
-    SignUp: SignUpScreen,
-    SignIn: SignInScreen
+    SignIn: SignInScreen,
+    SignUp: SignUpScreen
   }),
   MainFlow: createBottomTabNavigator({
     TrackListFlow: createStackNavigator({
