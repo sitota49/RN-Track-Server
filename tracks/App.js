@@ -14,7 +14,20 @@ import ResolveAuthScreen from './src/screens/ResolveAuthScreen'
 
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as LocationProvider } from './src/context/LocationContext';
+import { Provider as TrackProvider } from './src/context/TrackContext';
 import { setNavigator } from './src/navigationRef';
+import { FontAwesome } from '@expo/vector-icons';
+
+const TrackListFlow = createStackNavigator({
+  TrackList: TrackListScreen,
+  TrackDetail: TrackDetailScreen
+});
+
+TrackListFlow.navigationOptions = {
+  title: 'Tracks',
+  tabBarIcon: <FontAwesome name="th-list" size={20} />
+};
+
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
@@ -23,10 +36,7 @@ const switchNavigator = createSwitchNavigator({
     SignUp: SignUpScreen
   }),
   MainFlow: createBottomTabNavigator({
-    TrackListFlow: createStackNavigator({
-      TrackList: TrackListScreen,
-      TrackDetail: TrackDetailScreen
-    }),
+    TrackListFlow,
     TrackCreate: TrackCreateScreen,
     Account: AccountScreen
   })
@@ -36,10 +46,12 @@ const App = createAppContainer(switchNavigator);
 
 export default () => {
   return (
-    <LocationProvider>
-      <AuthProvider>
-        <App ref={(navigator) => { setNavigator(navigator) }} />
-      </AuthProvider>
-    </LocationProvider>
+    <TrackProvider>
+      <LocationProvider>
+        <AuthProvider>
+          <App ref={(navigator) => { setNavigator(navigator) }} />
+        </AuthProvider>
+      </LocationProvider>
+    </TrackProvider>
   );
 }
